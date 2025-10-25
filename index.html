@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenhando... | Portfólio de Arte</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Permanent+Marker&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Partículas flutuantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 72px;
+            color: #fff;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.5),
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(102, 126, 234, 0.5);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .artist-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        .artist-badge .icon {
+            font-size: 32px;
+        }
+
+        .artist-info h2 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .artist-info .role {
+            color: #ffd700;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .artist-info .user-id {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Galeria */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .artwork-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .artwork-card:nth-child(1) { animation-delay: 0.1s; }
+        .artwork-card:nth-child(2) { animation-delay: 0.2s; }
+        .artwork-card:nth-child(3) { animation-delay: 0.3s; }
+        .artwork-card:nth-child(4) { animation-delay: 0.4s; }
+        .artwork-card:nth-child(5) { animation-delay: 0.5s; }
+        .artwork-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .artwork-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .artwork-card:hover .artwork-image {
+            transform: scale(1.1);
+        }
+
+        .artwork-info {
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .artwork-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .artwork-description {
+            color: #4a5568;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .artwork-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .artwork-date {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .artwork-likes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e53e3e;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Botão adicionar */
+        .add-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .add-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.7);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-header h2 {
+            font-size: 28px;
+            color: #2d3748;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #718096;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #e53e3e;
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 48px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .artist-badge {
+                flex-direction: column;
+                padding: 20px 30px;
+            }
+
+            .add-button {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>✏️ Desenhando...</h1>
+            
+            <div class="artist-badge">
+                <div class="icon">🎨</div>
+                <div class="artist-info">
+                    <h2>luizmiguel0559</h2>
+                    <div class="role">⭐ Desenhista</div>
+                    <div class="user-id">ID: 1204538219962564691</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galeria de Desenhos -->
+        <div class="gallery" id="gallery">
+            <!-- Desenho 1 - Personagem Vermelho -->
+            <div class="artwork-card">
+                <img src="https://i.imgur.com/GG39WxP.jpeg" alt="Personagem Vermelho" class="artwork-image">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>🔴</span>
+                        <span>Personagem Vermelho</span>
+                    </div>
+                    <div class="artwork-description">
+                        Personagem estilo Minecraft com design criativo em tons de vermelho e preto. Arte digital com sombreamento detalhado.
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 Outubro 2025</div>
+                        <div class="artwork-likes">❤️ 42</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desenho 2 - Dragão -->
+            <div class="artwork-card">
+                <img src="https://i.imgur.com/zPiJ42U.jpeg" alt="Dragão" class="artwork-image">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>🐉</span>
+                        <span>Esboço de Dragão</span>
+                    </div>
+                    <div class="artwork-description">
+                        Sketch à lápis de um dragão majestoso. Trabalho focado em anatomia e proporções, com atenção aos detalhes das escamas.
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 Outubro 2025</div>
+                        <div class="artwork-likes">❤️ 38</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desenho 3 - Personagens Furry -->
+            <div class="artwork-card">
+                <img src="https://i.imgur.com/htjX3pT.jpeg" alt="Personagens Furry" class="artwork-image">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>🦊</span>
+                        <span>Duo de Personagens</span>
+                    </div>
+                    <div class="artwork-description">
+                        Dois personagens furry em poses dinâmicas. Estudo de expressões faciais e linguagem corporal com traços soltos.
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 Outubro 2025</div>
+                        <div class="artwork-likes">❤️ 56</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desenho 4 - Personagem com Venda -->
+            <div class="artwork-card">
+                <img src="https://i.imgur.com/vtXxcoe.jpeg" alt="Personagem Vendado" class="artwork-image">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>😎</span>
+                        <span>Personagem Misterioso</span>
+                    </div>
+                    <div class="artwork-description">
+                        Sketch de personagem com venda nos olhos e cabelo espetado. Arte com foco em sombreamento e textura de tecido.
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 Outubro 2025</div>
+                        <div class="artwork-likes">❤️ 45</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desenho 5 - Leão Colorido -->
+            <div class="artwork-card">
+                <img src="https://i.imgur.com/Zbzlz5T.jpeg" alt="Leão" class="artwork-image">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>🦁</span>
+                        <span>Leão Majestoso</span>
+                    </div>
+                    <div class="artwork-description">
+                        Arte colorida de um leão com juba vibrante em tons de amarelo, laranja e verde. Trabalho com lápis de cor e marcadores.
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 Outubro 2025</div>
+                        <div class="artwork-likes">❤️ 67</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão Adicionar -->
+    <button class="add-button" onclick="openModal()">+</button>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>➕ Novo Desenho</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <form onsubmit="addArtwork(event)">
+                <div class="form-group">
+                    <label>🎨 Nome do Desenho</label>
+                    <input type="text" id="artwork-name" placeholder="Ex: Dragão Épico" required>
+                </div>
+                <div class="form-group">
+                    <label>📝 Descrição</label>
+                    <textarea id="artwork-desc" placeholder="Descreva seu desenho..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🖼️ URL da Imagem</label>
+                    <input type="url" id="artwork-url" placeholder="https://..." required>
+                </div>
+                <div class="form-group">
+                    <label>😊 Emoji do Desenho</label>
+                    <input type="text" id="artwork-emoji" placeholder="Ex: 🐉" maxlength="2">
+                </div>
+                <button type="submit" class="submit-btn">✨ Adicionar Desenho</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Criar partículas
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Modal
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Adicionar novo desenho
+        function addArtwork(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('artwork-name').value;
+            const desc = document.getElementById('artwork-desc').value;
+            const url = document.getElementById('artwork-url').value;
+            const emoji = document.getElementById('artwork-emoji').value || '🎨';
+            
+            const gallery = document.getElementById('gallery');
+            const card = document.createElement('div');
+            card.className = 'artwork-card';
+            card.style.animation = 'fadeInUp 0.6s ease-out';
+            
+            const likes = Math.floor(Math.random() * 50) + 20;
+            const date = new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+            
+            card.innerHTML = `
+                <img src="${url}" alt="${name}" class="artwork-image" onerror="this.src='https://via.placeholder.com/400x350/667eea/FFFFFF?text=Imagem+não+encontrada'">
+                <div class="artwork-info">
+                    <div class="artwork-title">
+                        <span>${emoji}</span>
+                        <span>${name}</span>
+                    </div>
+                    <div class="artwork-description">
+                        ${desc}
+                    </div>
+                    <div class="artwork-meta">
+                        <div class="artwork-date">📅 ${date}</div>
+                        <div class="artwork-likes">❤️ ${likes}</div>
+                    </div>
+                </div>
+            `;
+            
+            gallery.appendChild(card);
+            
+            // Limpar form
+            document.getElementById('artwork-name').value = '';
+            document.getElementById('artwork-desc').value = '';
+            document.getElementById('artwork-url').value = '';
+            document.getElementById('artwork-emoji').value = '';
+            
+            closeModal();
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+  </html>
